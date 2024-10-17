@@ -16,6 +16,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest
 class ItemRepositoryTest {
 
+    /**
+     * 인터페이스를 테스트.
+     * 구현을 테스트해야할 때도 있지만, 기왕이면 인터페이스를 테스트 하는게 바꿔서 하기도 좋음.
+     */
     @Autowired
     ItemRepository itemRepository;
 
