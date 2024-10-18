@@ -21,6 +21,10 @@ public class ItemServiceApplication {
 	}
 
 	@Bean
+	/*
+	 * test는 properties 파일이 따로 있고, 거기에는 local이 아니라 "test"로 되어있음.
+	 * 따라서 이거 실행 안됨
+	 */
 	@Profile("local")
 	public TestDataInit testDataInit(ItemRepository itemRepository) {
 		return new TestDataInit(itemRepository);
