@@ -12,8 +12,7 @@ import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.support.GeneratedKeyHolder;
-import org.springframework.jdbc.support.KeyHolder;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.StringUtils;
 
@@ -23,36 +22,38 @@ import java.util.Map;
 import java.util.Optional;
 
 /**
- * NamedParameterJdbcTemplate
+ * SimpleJdbcInsert : 스프링에서 제공하는 JDBC 유틸리티
+ * update, delete는 없음. Insert만 제공.
  */
 @Slf4j
 @Repository
-public class JdbcTemplateItemReposotiryV2 implements ItemRepository {
+public class JdbcTemplateItemReposotiryV3 implements ItemRepository {
 
-    //    private final JdbcTemplate template;
     private final NamedParameterJdbcTemplate template;
+    private final SimpleJdbcInsert jdbcInsert;
 
-    public JdbcTemplateItemReposotiryV2(DataSource dataSource) {
-//        this.template = new JdbcTemplate(dataSource);
+    public JdbcTemplateItemReposotiryV3(DataSource dataSource) {
         this.template = new NamedParameterJdbcTemplate(dataSource);
+        this.jdbcInsert = new SimpleJdbcInsert(dataSource)
+                .withTableName("item")
+                .usingGeneratedKeyColumns("id")
+                .usingColumns("item_name", "price", "quantity"); // 이 줄은 생략 가능.
     }
 
-    /**
-     * BeanPropertySqlParameterSource(item) 사용
-     * Item 클래스의 필드명과 sql에서 지정한 ':파라미터'가 일치해야만 한다.
-     * 만약 둘이 다를 경우에는 MapSqlParameterSource를 사용하여 수동으로 매핑.
-     */
     @Override
     public Item save(Item item) {
-        String sql = "insert into item(item_name, price, quantity) " +
-                "values (:itemName, :price, :quantity)";
+//        String sql = "insert into item(item_name, price, quantity) " +
+//                "values (:itemName, :price, :quantity)";
+//        SqlParameterSource param = new BeanPropertySqlParameterSource(item);
+//
+//        KeyHolder keyHolder = new GeneratedKeyHolder();
+//        template.update(sql, param, keyHolder);
+//
+//        long key = keyHolder.getKey().longValue();
+//        item.setId(key);
         SqlParameterSource param = new BeanPropertySqlParameterSource(item);
-
-        KeyHolder keyHolder = new GeneratedKeyHolder();
-        template.update(sql, param, keyHolder);
-
-        long key = keyHolder.getKey().longValue();
-        item.setId(key);
+        Number key = jdbcInsert.executeAndReturnKey(param);
+        item.setId(key.longValue());
         return item;
     }
 
