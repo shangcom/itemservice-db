@@ -23,12 +23,15 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-devtools'
 
-	// JdbcTemplate 추가
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+//	// JdbcTemplate 추가 <- JPA에 포함됨으로 주석처리. JPA는 자체적으로 DB 접근 처리한다.
+//	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
 	// MyBatis 추가
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:2.2.0'
 	// H2 DB 추가
 	runtimeOnly 'com.h2database:h2'
+	// JPA, SpringDataJPA 추가.
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
 
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'

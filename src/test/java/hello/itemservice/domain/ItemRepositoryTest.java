@@ -4,6 +4,7 @@ import hello.itemservice.repository.ItemRepository;
 import hello.itemservice.repository.ItemSearchCond;
 import hello.itemservice.repository.ItemUpdateDto;
 import hello.itemservice.repository.memory.MemoryItemRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,10 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /*
-   * @Transactional : test 코드 안에서는 commit이 아니라 자동 rollback 된다.
-   * 만약 commit시켜야 한다면 해당 테스트 메서드에 @Commit을 붙인다.
+ * @Transactional : test 코드 안에서는 commit이 아니라 자동 rollback 된다.
+ * 만약 commit시켜야 한다면 해당 테스트 메서드에 @Commit을 붙인다.
  */
+@Slf4j
 @Transactional
 @SpringBootTest
 class ItemRepositoryTest {
@@ -64,6 +66,7 @@ class ItemRepositoryTest {
     }
 
     @Test
+//    @Commit // 커밋하면 JPA가 자동으로 만든 update 쿼리 확인 가능.
     void updateItem() {
         //given
         Item item = new Item("item1", 10000, 10);
@@ -88,6 +91,7 @@ class ItemRepositoryTest {
         Item item2 = new Item("itemA-2", 20000, 20);
         Item item3 = new Item("itemB-1", 30000, 30);
 
+        log.info("repository = {}", itemRepository.getClass());
         itemRepository.save(item1);
         itemRepository.save(item2);
         itemRepository.save(item3);
