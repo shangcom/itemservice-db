@@ -1,8 +1,9 @@
 package hello.itemservice;
 
-import hello.itemservice.config.JdbcTemplateV3Config;
+import hello.itemservice.config.MyBatisConfig;
 import hello.itemservice.repository.ItemRepository;
 import lombok.extern.slf4j.Slf4j;
+import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,8 +14,13 @@ import org.springframework.context.annotation.Profile;
 //@Import(MemoryConfig.class)
 //@Import(JdbcTemplateV1Config.class)
 //@Import(JdbcTemplateV2Config.class)
-@Import(JdbcTemplateV3Config.class)
+//@Import(JdbcTemplateV3Config.class)
+@Import(MyBatisConfig.class)
 @SpringBootApplication(scanBasePackages = "hello.itemservice.web") //컨트롤러만 자동 등록, 나머지는 수동 등록
+/*
+ * 명시적으로 매퍼 인터페이스의 스캔 범위를 지정. 자동 등록이 안될 경우.
+ */
+@MapperScan("hello.itemservice.repository.mybatis")
 public class ItemServiceApplication {
 
 	public static void main(String[] args) {

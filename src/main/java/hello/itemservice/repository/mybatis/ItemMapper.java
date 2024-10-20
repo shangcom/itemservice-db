@@ -17,6 +17,7 @@ import java.util.Optional;
  * '@Param' 애노테이션은 파라미터 이름을 명시적으로 지정
  *  XML 매퍼 파일은 MyBatis가 매퍼 인터페이스(ItemMapper)의 메서드를 호출할 때 사용할 SQL 쿼리를 정의하고,
  *  쿼리 실행 결과를 Java 객체로 매핑하는 기능을 제공
+ *  다른 곳에서 주입받아 사용하면 구현체 없어도 자동으로 생성됨(동적 프록시)
  */
 @Mapper // MyBatis 매퍼
 public interface ItemMapper {
