@@ -15,6 +15,13 @@ import javax.persistence.TypedQuery;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * JPA (Java Persistence API)를 직접 사용하는 리포지토리
+ * 직접 엔티티 매니저를 통해 DB와 상호작용.
+ * 개발자가 JPA의 내부 동작에 대한 이해 필요.
+ * 직접적인 트랜잭션 관리가 필요하며, @Transactional을 사용하여 데이터 변경 작업에 대해 명시적으로 트랜잭션을 설정해야 한다.
+ * 영속성 컨텍스트를 활용한 변경 감지와 같은 JPA의 기본 기능을 개발자가 직접 이해하고 관리해야 한다.
+ */
 @Slf4j
 @Repository // 이 어노테이션 붙이면 PersistenceExceptionTranslationPostProcessor 관리 대상. 예외 변환 AOP 적용됨.
 @Transactional
@@ -50,7 +57,7 @@ public class JpaItemRepositoryV1 implements ItemRepository {
 
     @Override
     public List<Item> findAll(ItemSearchCond cond) {
-        String jpql = "select i from Item i";
+        String jpql = "select i from Item i"; // i는 별칭.
 
         Integer maxPrice = cond.getMaxPrice();
         String itemName = cond.getItemName();

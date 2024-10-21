@@ -16,6 +16,7 @@ import java.util.Optional;
 @Transactional
 public class ItemServiceV1 implements ItemService {
 
+    // 의존성을 주입하는 부분에서의 수정
     private final ItemRepository itemRepository;
 
     @Override

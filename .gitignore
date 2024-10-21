@@ -5,6 +5,9 @@ build/
 !**/src/main/**/build/
 !**/src/test/**/build/
 
+# Querydsl Q 클래스 자동 생성 파일 제외
+/src/main/generated/
+
 ### STS ###
 .apt_generated
 .classpath

@@ -1,6 +1,6 @@
 package hello.itemservice;
 
-import hello.itemservice.config.JpaConfig;
+import hello.itemservice.config.QueryDslConfig;
 import hello.itemservice.repository.ItemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -19,20 +19,22 @@ import org.springframework.context.annotation.Profile;
 //명시적으로 매퍼 인터페이스의 스캔 범위를 지정. 자동 등록이 안될 경우.
 //@MapperScan("hello.itemservice.repository.mybatis")
 
-@Import(JpaConfig.class)
+//@Import(JpaConfig.class)
+//@Import(SpringDataJpaConfig.class)
+@Import(QueryDslConfig.class)
 @SpringBootApplication(scanBasePackages = "hello.itemservice.web") //컨트롤러만 자동 등록, 나머지는 수동 등록
 public class ItemServiceApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ItemServiceApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ItemServiceApplication.class, args);
+    }
 
-	@Bean
-	// test는 properties 파일이 따로 있고, 거기에는 local이 아니라 "test"로 되어있음.
-	@Profile("local")
-	public TestDataInit testDataInit(ItemRepository itemRepository) {
-		return new TestDataInit(itemRepository);
-	}
+    @Bean
+    // test는 properties 파일이 따로 있고, 거기에는 local이 아니라 "test"로 되어있음.
+    @Profile("local")
+    public TestDataInit testDataInit(ItemRepository itemRepository) {
+        return new TestDataInit(itemRepository);
+    }
 
 /*	@Bean
 	@Profile("test")
