@@ -1,6 +1,6 @@
 package hello.itemservice;
 
-import hello.itemservice.config.QueryDslConfig;
+import hello.itemservice.config.V2Config;
 import hello.itemservice.repository.ItemRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -21,7 +21,8 @@ import org.springframework.context.annotation.Profile;
 
 //@Import(JpaConfig.class)
 //@Import(SpringDataJpaConfig.class)
-@Import(QueryDslConfig.class)
+//@Import(QueryDslConfig.class)
+@Import(V2Config.class)
 @SpringBootApplication(scanBasePackages = "hello.itemservice.web") //컨트롤러만 자동 등록, 나머지는 수동 등록
 public class ItemServiceApplication {
 

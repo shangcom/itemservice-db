@@ -80,9 +80,8 @@ public class JpaItemRepositoryV3 implements ItemRepository {
         }
 
         // fetch()는 Querydsl에서 구성된 쿼리를 실행하고 결과를 리스트 형태로 반환하는 메서드
-        List<Item> result = query.select(QItem.item).from(QItem.item).where(builder).fetch();
 
-        return result;
+        return query.select(QItem.item).from(QItem.item).where(builder).fetch();
     }
 
     /*
@@ -101,7 +100,7 @@ public class JpaItemRepositoryV3 implements ItemRepository {
     }
 
     /*
-    BooleanExp
+    BooleanExpression
      */
     private BooleanExpression likeItemName(String itemName) {
         if (StringUtils.hasText(itemName)) {
